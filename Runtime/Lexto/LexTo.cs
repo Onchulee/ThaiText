@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.IO;
 using UnityEngine;
 
@@ -29,6 +30,23 @@ namespace Lexto
 
         private LexTo()
         {
+            // Try loading lexitron dictionary from a Resources folder in the user project.
+            TryInitialize();
+
+            if(!init)
+            {
+                Tokenizer = new LongLexTo();
+#if UNITY_EDITOR
+                // Open Resources Importer to import the ThaiText Essential Resources
+                com.dgn.ThaiText.PackageResourceImporter importer = new com.dgn.ThaiText.PackageResourceImporter();
+                importer.Import();
+#else
+                 Debug.LogError(" !!! Error: The dictionary file is not found, " + dictionaryName);
+#endif
+            }
+        }
+
+        public void TryInitialize() {
             TextAsset level = Resources.Load<TextAsset>(dictionaryName);
             if (level != null)
             {
@@ -39,13 +57,7 @@ namespace Lexto
                 Debug.Log(" !!! LexTo Initialized ");
                 init = true;
             }
-            else {
-                Tokenizer = new LongLexTo();
-                init = false;
-                Debug.LogError(" !!! Error: The dictionary file is not found, " + dictionaryName);
-            }
         }
-
         public string InsertLineBreaks(string inputText, char separator = ' ') {
             if (!init) {
                 return inputText;
@@ -67,7 +79,7 @@ namespace Lexto
             }
             return result;
         }
-
+        
     } // end class
 
 } // end namespace

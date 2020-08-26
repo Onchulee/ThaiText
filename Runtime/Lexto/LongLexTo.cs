@@ -21,7 +21,7 @@ namespace Lexto
     class LongLexTo
     {
         //Private variables
-        private Tire dict;               //For storing words from dictionary
+        private Trie dict;               //For storing words from dictionary
         private LongParseTree ptree;     //Parsing tree (for Thai words)
 
         //Returned variables
@@ -78,7 +78,7 @@ namespace Lexto
 
         public LongLexTo()
         {
-            dict = new Tire();
+            dict = new Trie();
             indexList = new ArrayList();
             lineList = new ArrayList();
             typeList = new ArrayList();
@@ -87,7 +87,7 @@ namespace Lexto
 
         public LongLexTo(String input)
         {
-            dict = new Tire();
+            dict = new Trie();
             indexList = new ArrayList();
             lineList = new ArrayList();
             typeList = new ArrayList();
@@ -96,7 +96,7 @@ namespace Lexto
 
         public LongLexTo(StreamReader input)
         {
-            dict = new Tire();
+            dict = new Trie();
             if (input!=null)
             {
                 AddDict(input);
@@ -136,7 +136,6 @@ namespace Lexto
                     {
                         dict.add(line);
                     }
-                    //yield return line;
                 }
             }
         } //addDict

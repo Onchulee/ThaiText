@@ -1,0 +1,17 @@
+{
+    "name": "com.dgn.ThaiText.Editor",
+    "references": [
+        "GUID:cfd288e7fa1b75741b469e975663e0e9"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

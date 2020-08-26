@@ -4,39 +4,39 @@ using System.Text;
 
 namespace Lexto
 {
-    class Tire
+    class Trie
     {
-        protected Tire parent = null;
-        protected Tire[] child = new Tire[1];
+        protected Trie parent = null;
+        protected Trie[] child = new Trie[1];
         protected int numChildren = 0;
         protected char ch;
         protected Boolean isWord = false;
 
         //Creates a Trie using the root symbol as the character
-        public Tire()
+        public Trie()
         {
             ch = (char)251;
         }
-        public Tire(char c)
+        public Trie(char c)
         {
             ch = c;
         }
 
         //Used to create the trie nodes when a string is added to a trie
-        protected Tire createNode(char c)
+        protected Trie createNode(char c)
         {
-            return new Tire(c);
+            return new Trie(c);
         }
 
         //Inserts the trie as the last child
-        protected void addChild(Tire t)
+        protected void addChild(Trie t)
         {
             insertChild(t, numChildren);
         }
 
         //Inserts the trie at the specified index.  
         // If successful, the parent of the specified trie is updated to be this trie.
-        public void insertChild(Tire t, int index)
+        public void insertChild(Trie t, int index)
         {
             if (index < 0 || index > numChildren)
             {
@@ -66,7 +66,7 @@ namespace Lexto
 
             if (numChildren == child.Length)
             {
-                Tire[] arr = new Tire[2 * (numChildren + 1)];
+                Trie[] arr = new Trie[2 * (numChildren + 1)];
                 for (int i = 0; i < numChildren; i++)
                     arr[i] = child[i];
                 child = arr;
@@ -80,9 +80,9 @@ namespace Lexto
 
         //Returns true if this node is a descendent of the specified node or this node and the specified
         //node are the same node, false otherwise.
-        public Boolean isDescendent(Tire t)
+        public Boolean isDescendent(Trie t)
         {
-            Tire r = this;
+            Trie r = this;
             while (r != null)
             {
                 if (r == t)
@@ -125,11 +125,11 @@ namespace Lexto
             // this code adds from the bottom to the top because the addChild method
             // checks for cyclic references.  This prevents quadratic runtime.
             int ii = s.Length - 1;
-            Tire t = createNode(s[ii--]);
+            Trie t = createNode(s[ii--]);
             t.isWord = true;
             while (ii >= index)
             {
-                Tire n = createNode(s[ii--]);
+                Trie n = createNode(s[ii--]);
                 n.addChild(t);
                 t = n;
             }
@@ -138,7 +138,7 @@ namespace Lexto
         }
 
         //Returns the child that has the specified character or null if no child has the specified character.
-        public Tire getNode(char c)
+        public Trie getNode(char c)
         {
             for (int i = 0; i < numChildren; i++)
             {
@@ -152,12 +152,12 @@ namespace Lexto
 
         //Returns the last trie in the path that prefix matches the specified prefix string
         //rooted at this node, or null if there is no such prefix path.
-        public Tire getNode(String prefix)
+        public Trie getNode(String prefix)
         {
             return getNode(prefix, 0);
         }
 
-        private Tire getNode(String prefix, int index)
+        private Trie getNode(String prefix, int index)
         {
             if (index == prefix.Length)
             {
@@ -194,7 +194,7 @@ namespace Lexto
         //An array of length 0 is returned if there are no words that begin with the specified prefix.
         public String[] getWords(String prefix)
         {
-            Tire n = getNode(prefix);
+            Trie n = getNode(prefix);
             if (n == null)
             {
                 return new String[0];
@@ -221,7 +221,7 @@ namespace Lexto
         //Otherwise false is returned.
         public Boolean hasPrefix(String s)
         {
-            Tire t = getNode(s);
+            Trie t = getNode(s);
             if (t == null)
             {
                 return false;
@@ -233,7 +233,7 @@ namespace Lexto
         //Retrun value if contains, 0 if hasPrefix, else -1
         public int contains(String s)
         {
-            Tire t = getNode(s);
+            Trie t = getNode(s);
             if (t == null)
             {
                 return -1;
@@ -265,7 +265,7 @@ namespace Lexto
         public int getHeight()
         {
             int h = -1;
-            Tire t = this;
+            Trie t = this;
             while (t != null)
             {
                 h++;
@@ -281,7 +281,7 @@ namespace Lexto
         public String toString()
         {
             StringBuilder sb = new StringBuilder(getHeight());
-            Tire t = this;
+            Trie t = this;
             while (t.parent != null)
             {
                 sb.Append(t.ch);

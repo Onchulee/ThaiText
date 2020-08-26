@@ -10,7 +10,7 @@ namespace Lexto
     class LongParseTree
     {
         //Private variables
-        private Tire dict;               //For storing words from dictionary
+        private Trie dict;               //For storing words from dictionary
         //Vector
         private ArrayList indexList;        //List of index positions
         private ArrayList typeList;         //List of word types
@@ -23,7 +23,7 @@ namespace Lexto
         /*******************************************************************/
         /************************ Constructor ******************************/
         /*******************************************************************/
-        public LongParseTree(Tire dict, ArrayList indexList, ArrayList typeList)
+        public LongParseTree(Trie dict, ArrayList indexList, ArrayList typeList)
         {
             this.dict = dict;
             this.indexList = indexList;
