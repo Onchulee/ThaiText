@@ -1,0 +1,25 @@
+{
+    "name": "thaitext",
+    "version": "1.0.0",
+    "displayName": "Thai Text",
+    "description": "Unity Text UI for Thai language",
+    "unity": "2019.4",
+    "keywords": [
+        "Thai",
+        "Thai Text"
+    ],
+    "author": {
+        "name": "Dragan O. Wip",
+        "email": "onchulee.wip@hotmail.com",
+        "url": "https://github.com/Onchulee/ThaiText#readme"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Onchulee/ThaiText.git"
+    },
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Onchulee/ThaiText/issues"
+    },
+    "homepage": "https://github.com/Onchulee/ThaiText#readme"
+}
