@@ -1,4 +1,5 @@
 ﻿using com.dgn.ThaiText;
+using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -10,11 +11,22 @@ namespace Lexto.Editor
         private static FileSystemWatcher m_Watcher;
         private static bool _triggerRecompile = false;
         private static double nextSeek = 0;
-        private static readonly double threadSeek = 1d; // call (1 sec)
+        private static readonly double threadSeek = 1d;
         
         [InitializeOnLoadMethod]
         public static void InitLexitronWatcher()
         {
+            bool exists = Directory.Exists(Lexitron.Path);
+            if (!exists) {
+                try
+                {
+                    PackageResourceImporter importer = new PackageResourceImporter();
+                    importer.Import();
+                }
+                catch (Exception e) {
+                    Directory.CreateDirectory(Lexitron.Path);
+                }
+            }
             m_Watcher = new FileSystemWatcher(Lexitron.Path, Lexitron.FileName);
             m_Watcher.Created += Recompile;
             m_Watcher.Changed += Recompile;
@@ -57,14 +69,12 @@ namespace Lexto.Editor
         private static void UpdateLexto() {
             byte[] readText = File.ReadAllBytes(Lexitron.PathFile);
             LexTo.Instance.Load(readText);
-            // Redraw
+            // These part is a workaround to force redraw Editor view
             ThaiText _ThaiText = GameObject.FindObjectOfType<ThaiText>();
             if (_ThaiText)
             {
                 _ThaiText.enabled = false;
                 _ThaiText.enabled = true;
-                //UnityEditor.EditorUtility.SetDirty(_ThaiText);
-                //UnityEditor.SceneView.RepaintAll();
             }
         }
     }
