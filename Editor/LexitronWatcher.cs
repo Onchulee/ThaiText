@@ -14,19 +14,31 @@ namespace Lexto.Editor
         private static readonly double threadSeek = 1d;
         
         [InitializeOnLoadMethod]
-        public static void InitLexitronWatcher()
+        public static void OnInitialized()
         {
             bool exists = Directory.Exists(Lexitron.Path);
-            if (!exists) {
+            if (exists) {
+                InitLexitronWatcher();
+            }
+            else {
                 try
                 {
                     PackageResourceImporter importer = new PackageResourceImporter();
                     importer.Import();
                 }
-                catch (Exception e) {
+                catch (Exception e)
+                {
                     Directory.CreateDirectory(Lexitron.Path);
                 }
+                finally
+                {
+                    InitLexitronWatcher();
+                }
             }
+        }
+
+        private static void InitLexitronWatcher()
+        {
             m_Watcher = new FileSystemWatcher(Lexitron.Path, Lexitron.FileName);
             m_Watcher.Created += Recompile;
             m_Watcher.Changed += Recompile;
@@ -36,7 +48,7 @@ namespace Lexto.Editor
             m_Watcher.EnableRaisingEvents = true;
         }
 
-        public static void TerminateLexitronWatcher()
+        private static void TerminateLexitronWatcher()
         {
             m_Watcher.EnableRaisingEvents = false;
             EditorApplication.update -= OnEditorApplicationUpdate;
