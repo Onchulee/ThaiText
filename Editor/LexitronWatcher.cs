@@ -23,9 +23,8 @@ namespace Lexto.Editor
             else {
                 try
                 {
-                    PackageResourceImporter importer = new PackageResourceImporter();
+                    PackageResourceImporter importer = new PackageResourceImporter(InitLexitronWatcher);
                     importer.Import();
-                    InitLexitronWatcher();
                 }
                 catch (Exception e)
                 {

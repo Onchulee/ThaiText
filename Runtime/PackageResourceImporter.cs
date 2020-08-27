@@ -16,7 +16,19 @@ namespace com.dgn.ThaiText
         }
 
         bool m_EssentialResourcesImported = false;
-        
+
+        public delegate void DelegateImportCompleted();
+        DelegateImportCompleted OnImportCompleted;
+
+        public PackageResourceImporter()
+        {
+            OnImportCompleted = delegate { };
+        }
+
+        public PackageResourceImporter(DelegateImportCompleted onImportCompleted) {
+            OnImportCompleted = onImportCompleted;
+        }
+
         public void Import()
         {
             // Check if the resources state has changed.
@@ -40,6 +52,7 @@ namespace com.dgn.ThaiText
 #if UNITY_2018_3_OR_NEWER
                 SettingsService.NotifySettingsProviderChanged();
 #endif
+                if (OnImportCompleted!=null) OnImportCompleted.Invoke();
             }
 
             Debug.Log("[" + packageName + "] have been imported.");
