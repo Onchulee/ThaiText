@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿#if UNITY_EDITOR
+using System.IO;
 using UnityEngine;
 using UnityEditor;
 
@@ -7,17 +8,23 @@ namespace com.dgn.ThaiText
     [System.Serializable]
     public class PackageResourceImporter
     {
+
+        public static string PackageFullPathFile {
+            get {
+                return GetPackageFullPath() + EssentialResources.PathFile;
+            }
+        }
+
         bool m_EssentialResourcesImported = false;
         
         public void Import()
         {
             // Check if the resources state has changed.
-            m_EssentialResourcesImported = File.Exists("Assets/DGN/ThaiText/Resources/lexitron.txt");
+            m_EssentialResourcesImported = File.Exists(EssentialResources.PathFile);
             if (!m_EssentialResourcesImported)
             {
                 AssignCallback();
-                string packageFullPath = GetPackageFullPath();
-                AssetDatabase.ImportPackage(packageFullPath + "/Package Resources/ThaiText Essential Resources.unitypackage", false);
+                AssetDatabase.ImportPackage(PackageFullPathFile, false);
             }
         }
         
@@ -36,13 +43,6 @@ namespace com.dgn.ThaiText
             }
 
             Debug.Log("[" + packageName + "] have been imported.");
-            Lexto.LexTo.Instance.TryInitialize();
-            // Force redraw after import package
-            ThaiText _ThaiText = GameObject.FindObjectOfType<ThaiText>();
-            if (_ThaiText) {
-                _ThaiText.enabled = false;
-                _ThaiText.enabled = true;
-            }
             UnassignCallback();
         }
 
@@ -65,7 +65,7 @@ namespace com.dgn.ThaiText
             AssetDatabase.importPackageFailed -= ImportFailed;
         }
 
-        static string GetPackageFullPath()
+        public static string GetPackageFullPath()
         {
             // Check for potential UPM package
             string packagePath = Path.GetFullPath("Packages/com.dgn.ThaiText");
@@ -114,3 +114,4 @@ namespace com.dgn.ThaiText
         }
     }
 }
+#endif

@@ -16,7 +16,6 @@ namespace com.dgn.ThaiText.Editor
         SerializedProperty m_Text;
         SerializedProperty m_FontData;
         
-
         protected override void OnEnable()
         {
             base.OnEnable();

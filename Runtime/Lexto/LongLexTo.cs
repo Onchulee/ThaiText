@@ -132,7 +132,8 @@ namespace Lexto
                 while ((line = sr.ReadLine()) != null)
                 {
                     line = line.Trim();
-                    if (line.Length > 0)
+                    // ignore if start with #
+                    if (line.Length > 0 && !line.StartsWith("#"))
                     {
                         dict.add(line);
                     }

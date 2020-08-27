@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.IO;
 using UnityEngine;
 
@@ -8,7 +7,6 @@ namespace Lexto
     [ExecuteInEditMode]
     public class LexTo
     {
-        private const string dictionaryName = "lexitron";
         private static LongLexTo Tokenizer;
         private static bool init;
 
@@ -46,11 +44,22 @@ namespace Lexto
             }
         }
 
-        public void TryInitialize() {
-            TextAsset level = Resources.Load<TextAsset>(dictionaryName);
+        private void TryInitialize() {
+            // Resources.Load doesn't need extension file
+            TextAsset level = Resources.Load<TextAsset>(Lexitron.Name);
             if (level != null)
             {
-                using (StreamReader sr = new StreamReader(new MemoryStream(level.bytes)))
+                byte[] data = level.bytes;
+                Resources.UnloadAsset(level);
+                Load(data);
+            }
+        }
+
+        public void Load(byte[] data)
+        {
+            if (data != null && data.Length > 0)
+            {
+                using (StreamReader sr = new StreamReader(new MemoryStream(data)))
                 {
                     Tokenizer = new LongLexTo(sr);
                 }
@@ -58,6 +67,7 @@ namespace Lexto
                 init = true;
             }
         }
+
         public string InsertLineBreaks(string inputText, char separator = ' ') {
             if (!init) {
                 return inputText;
