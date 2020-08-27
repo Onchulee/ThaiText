@@ -25,36 +25,38 @@ namespace Lexto.Editor
                 {
                     PackageResourceImporter importer = new PackageResourceImporter();
                     importer.Import();
+                    InitLexitronWatcher();
                 }
                 catch (Exception e)
                 {
-                    Directory.CreateDirectory(Lexitron.Path);
-                }
-                finally
-                {
-                    InitLexitronWatcher();
+                    Debug.LogError(e);
                 }
             }
         }
 
         private static void InitLexitronWatcher()
         {
-            m_Watcher = new FileSystemWatcher(Lexitron.Path, Lexitron.FileName);
-            m_Watcher.Created += Recompile;
-            m_Watcher.Changed += Recompile;
-            nextSeek = EditorApplication.timeSinceStartup;
-            EditorApplication.update += OnEditorApplicationUpdate;
-            EditorApplication.quitting += TerminateLexitronWatcher;
-            m_Watcher.EnableRaisingEvents = true;
+            if (Directory.Exists(Lexitron.Path))
+            {
+                m_Watcher = new FileSystemWatcher(Lexitron.Path, Lexitron.FileName);
+                m_Watcher.Created += Recompile;
+                m_Watcher.Changed += Recompile;
+                nextSeek = EditorApplication.timeSinceStartup;
+                EditorApplication.update += OnEditorApplicationUpdate;
+                EditorApplication.quitting += TerminateLexitronWatcher;
+                m_Watcher.EnableRaisingEvents = true;
+            }
         }
 
         private static void TerminateLexitronWatcher()
         {
-            m_Watcher.EnableRaisingEvents = false;
-            EditorApplication.update -= OnEditorApplicationUpdate;
-            m_Watcher.Created -= Recompile;
-            m_Watcher.Changed -= Recompile;
-            m_Watcher.Dispose();
+            if (m_Watcher != null) {
+                m_Watcher.EnableRaisingEvents = false;
+                EditorApplication.update -= OnEditorApplicationUpdate;
+                m_Watcher.Created -= Recompile;
+                m_Watcher.Changed -= Recompile;
+                m_Watcher.Dispose();
+            }
         }
 
         private static void Recompile(object sender, FileSystemEventArgs e)
