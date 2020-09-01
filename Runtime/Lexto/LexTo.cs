@@ -34,12 +34,8 @@ namespace Lexto
             if(!init)
             {
                 Tokenizer = new LongLexTo();
-#if UNITY_EDITOR
-                // Open Resources Importer to import the ThaiText Essential Resources
-                com.dgn.ThaiText.PackageResourceImporter importer = new com.dgn.ThaiText.PackageResourceImporter();
-                importer.Import();
-#else
-                 Debug.LogError(" !!! Error: The dictionary file is not found, " + dictionaryName);
+#if !UNITY_EDITOR
+                Debug.LogError(" !!! Error: The dictionary file is not found, " + dictionaryName);
 #endif
             }
         }

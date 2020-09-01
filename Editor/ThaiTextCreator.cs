@@ -15,7 +15,7 @@ namespace com.dgn.ThaiText.Editor
             GameObject go = ObjectFactory.CreateGameObject("Thai Text", typeof(ThaiText));
             PlaceUIElementRoot(go, menuCommand);
         }
-
+        
         /***
              Helper methods I copied from UnityEditor.UI [MenuOptions.cs]
              

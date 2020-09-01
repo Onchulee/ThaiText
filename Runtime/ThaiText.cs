@@ -142,7 +142,7 @@ namespace com.dgn.ThaiText
             htmlTag = new List<string>();
             foreach (TagString tag in tagArr)
             {
-                if (tag.tag)
+                if (tag.IsTag)
                 {
                     parserValue += SPECIAL_TAG;
                     htmlTag.Add(tag.GetTagString());
@@ -240,6 +240,14 @@ namespace com.dgn.ThaiText
         {
             m_Text = TextAdjust(defaultText, GetBoxWidth(), horizontalOverflow, GetFontData);
             base.OnEnable();
+        }
+
+        protected override void Reset()
+        {
+            base.Reset();
+            Font loadFont = Resources.Load("ThaiText/Fonts/RSU_Regular") as Font;
+            if(loadFont) font = loadFont;
+            text = "ข้อความ";
         }
 
 #if UNITY_EDITOR

@@ -1,12 +1,19 @@
 {
     "name": "com.dgn.thaitext",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "displayName": "Thai Text",
     "description": "Unity Text UI for Thai language",
     "unity": "2019.4",
     "keywords": [
         "Thai",
         "Thai Text"
+    ],
+    "samples": [
+        {
+            "displayName": "Example Project",
+            "description": "Example project that shows how Thai Text works",
+            "path": "Samples~/Sample"
+        }
     ],
     "author": {
         "name": "Dragan O. Wip",
@@ -21,5 +28,6 @@
     "bugs": {
         "url": "https://github.com/Onchulee/ThaiText/issues"
     },
-    "homepage": "https://github.com/Onchulee/ThaiText#readme"
+    "homepage": "https://github.com/Onchulee/ThaiText#readme",
+    "dependencies": {}
 }

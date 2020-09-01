@@ -44,6 +44,7 @@ namespace Lexto.Editor
                 EditorApplication.update += OnEditorApplicationUpdate;
                 EditorApplication.quitting += TerminateLexitronWatcher;
                 m_Watcher.EnableRaisingEvents = true;
+                Debug.Log("!!! Lexitron Watcher Initialized");
             }
         }
 

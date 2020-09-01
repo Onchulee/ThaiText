@@ -3,38 +3,40 @@ using System;
 
 public class TagString
 {
-    public bool tag;
-    public bool start;
-    public string attribute;
+    public enum Type {Undefined, Open, Close};
+    
+    public Type type;
     public string tagstring;
+    public string attribute;
 
-    public TagString(string str, bool strt, string val)
+    public bool IsTag { get { return type!=Type.Undefined; } }
+
+    public TagString(string str, Type strt, string val)
     {
-        tag = true;
         tagstring = str;
-        start = strt;
+        type = strt;
         attribute = val;
     }
 
-    public TagString(string str, bool strt)
+    public TagString(string str, Type strt)
     {
-        tag = true;
         tagstring = str;
-        start = strt;
+        type = strt;
     }
 
     public TagString(string str)
     {
         tagstring = str;
+        type = Type.Undefined;
     }
 
     public string GetTagString()
     {
         string ret = tagstring;
-        if (tag)
+        if (IsTag)
         {
             if (!String.IsNullOrEmpty(attribute)) ret = ret + "=" + attribute;
-            if (start) ret = "<" + ret + ">";
+            if (type == Type.Open) ret = "<" + ret + ">";
             else ret = "</" + ret + ">";
         }
         return ret;
@@ -43,8 +45,8 @@ public class TagString
     public override string ToString()
     {
         string ret = "";
-        ret += "tag: " + tag + ",";
-        ret += "start: " + start + ",";
+        ret += "tag: " + IsTag + ",";
+        ret += "type: " + ((type == Type.Open)?"OPEN":"CLOSE") + " tag,";
         ret += "attribute: " + attribute + ",";
         ret += "tagstring: " + tagstring;
         return "[" + ret + "]";
