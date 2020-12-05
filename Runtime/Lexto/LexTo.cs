@@ -35,7 +35,7 @@ namespace Lexto
             {
                 Tokenizer = new LongLexTo();
 #if !UNITY_EDITOR
-                Debug.LogError(" !!! Error: The dictionary file is not found, " + dictionaryName);
+                Debug.LogError(" !!! Error: The dictionary file is not found, " + Lexitron.FileName);
 #endif
             }
         }

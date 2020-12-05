@@ -242,6 +242,7 @@ namespace com.dgn.ThaiText
             base.OnEnable();
         }
 
+#if UNITY_EDITOR
         protected override void Reset()
         {
             base.Reset();
@@ -250,7 +251,6 @@ namespace com.dgn.ThaiText
             text = "ข้อความ";
         }
 
-#if UNITY_EDITOR
         // The Text inspector editor can change the font, and we need a way to track changes so that we get the appropriate rebuild callbacks
         // We can intercept changes in OnValidate, and keep track of the previous font reference
         protected override void OnValidate()

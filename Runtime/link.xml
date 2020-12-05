@@ -1,0 +1,5 @@
+<linker>
+  <assembly fullname="UnityEngine.UI.Text">
+    <namespace fullname="UnityEngine.UI.Text" preserve="all"/>
+  </assembly>
+</linker>
