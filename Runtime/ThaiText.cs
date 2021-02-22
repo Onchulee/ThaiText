@@ -40,6 +40,7 @@ namespace com.dgn.ThaiText
                 if (!defaultText.Equals(value))
                 {
                     defaultText = value;
+                    m_Text = value;
                     if (rectTransform.rect.width != 0)
                     {
                         m_Text = TextAdjust(defaultText, GetBoxWidth(), horizontalOverflow, GetFontData);
