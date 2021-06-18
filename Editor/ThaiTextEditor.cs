@@ -38,10 +38,10 @@ namespace com.dgn.ThaiText.Editor
             AppearanceControlsGUI();
             RaycastControlsGUI();
             MaskableControlsGUI();
-
+            
             if (EditorGUI.EndChangeCheck())
             {
-                m_Text.stringValue = ThaiText.TextAdjust(defaultText.stringValue, thaiText.GetBoxWidth(), 
+                m_Text.stringValue = ThaiText.TextAdjust(defaultText.stringValue, thaiText.GetBoxWidth(),
                     thaiText.horizontalOverflow, thaiText.GetFontData);
                 serializedObject.ApplyModifiedProperties();
             }

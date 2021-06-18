@@ -45,6 +45,7 @@ namespace com.dgn.ThaiText
                     {
                         m_Text = TextAdjust(defaultText, GetBoxWidth(), horizontalOverflow, GetFontData);
                     }
+                    OnRebuildRequested();
                 }
             }
         }
@@ -250,6 +251,7 @@ namespace com.dgn.ThaiText
             Font loadFont = Resources.Load("ThaiText/Fonts/RSU_Regular") as Font;
             if(loadFont) font = loadFont;
             text = "ข้อความ";
+            color = Color.black;
         }
 
         // The Text inspector editor can change the font, and we need a way to track changes so that we get the appropriate rebuild callbacks
