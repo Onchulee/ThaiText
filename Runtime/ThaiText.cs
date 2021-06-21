@@ -45,7 +45,7 @@ namespace com.dgn.ThaiText
                     {
                         m_Text = TextAdjust(defaultText, GetBoxWidth(), horizontalOverflow, GetFontData);
                     }
-                    OnRebuildRequested();
+                    SetAllDirty();
                 }
             }
         }
